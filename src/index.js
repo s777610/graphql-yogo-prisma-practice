@@ -89,9 +89,28 @@ const typeDefs = `
   }
 
   type Mutation {
-    createUser(name: String!, email: String!, age: Int): User!
-    createPost(title: String!, body: String!, published: Boolean!, author: ID!): Post!
-    createComment(text: String!, author: ID!, post: ID!): Comment!
+    createUser(data: CreateUserInput): User!
+    createPost(data: CreatePostInput): Post!
+    createComment(data: CreateCommentInput): Comment!
+  }
+
+  input CreateUserInput {
+    name: String!
+    email: String!
+    age: Int
+  }
+
+  input CreatePostInput {
+    title: String!
+    body: String!
+    published: Boolean!
+    author: ID!
+  }
+
+  input CreateCommentInput {
+    text: String!
+    author: ID!
+    post: ID!
   }
 
   type User {
@@ -178,7 +197,7 @@ const resolvers = {
 
       const user = {
         id: uuidv4(),
-        ...args
+        ...args.data
       };
 
       users.push(user);
@@ -187,14 +206,14 @@ const resolvers = {
     },
 
     createPost(parent, args, ctx, info) {
-      const userExists = users.some(user => user.id === args.author);
+      const userExists = users.some(user => user.id === args.data.author);
       if (!userExists) {
         throw new Error("User not found");
       }
 
       const post = {
         id: uuidv4(),
-        ...args
+        ...args.data
       };
 
       posts.push(post);
@@ -203,9 +222,9 @@ const resolvers = {
     },
 
     createComment(parent, args, ctx, info) {
-      const userExists = users.some(user => user.id === args.author);
+      const userExists = users.some(user => user.id === args.data.author);
       const postExists = posts.some(
-        post => post.id === args.post && post.published
+        post => post.id === args.data.post && post.published
       );
 
       if (!userExists || !postExists) {
@@ -214,7 +233,7 @@ const resolvers = {
 
       const comment = {
         id: uuidv4(),
-        ...args
+        ...args.data
       };
 
       comments.push(comment);

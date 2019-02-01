@@ -30,6 +30,20 @@ Deploy your Prisma server
 ```
 prisma deploy
 ```
+Open browser and go to http://localhost:4466/
 
 
-http://localhost:4466/
+
+
+## Docker 
+```
+docker-compose kill
+```
+
+```
+docker-compose down
+```
+
+```
+docker-compose up -d
+```

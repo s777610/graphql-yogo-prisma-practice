@@ -1,1 +1,25 @@
 # graphql-yogo-prisma-practice
+
+
+
+
+
+
+## Prisma
+Prisma is GraphQL ORM which can turn your database into a GraphQL API. It supports multiple databases such as MySQL, PostgreSQL, MongoDB, and so on.<br>
+
+1. Install Prisma globally
+```npm install -g prisma```
+2. Connect Prisma to a database
+To set up Prisma, you have to install Docker first
+```prisma init <folder name>```
+
+After creating new folder, you can run
+```cd <folder name>```
+```docker-compose up -d```
+
+Deploy your Prisma server
+```prisma deploy```
+
+
+http://localhost:4466/
